@@ -5,8 +5,10 @@ require_relative './exercise_3'
 require_relative './exercise_4'
 require_relative './exercise_5'
 require_relative './exercise_6'
+require_relative './exercise_7'
+require_relative './exercise_8'
 
-puts "Exercise 7"
+puts "Exercise 9"
 puts "----------"
 
 # Your code goes here ...
@@ -24,21 +26,29 @@ class Store < ActiveRecord::Base
     end
   end
 
+  private
+    before_destroy do
+      if self.employees.size < 1
+        self.destroy
+      else
+        throw(:abort)
+      end
+    end
+
 end
 
-class Employee < ActiveRecord::Base
-  belongs_to :store
-  validates :first_name, :last_name, :store, presence: true
-  validates :hourly_rate, numericality: { greater_than_or_equal_to: 40, less_than_or_equal_to: 200, only_integer: true }
+# Make sure non-empty stores cannot be destroyed
+@store1 = Store.find(1)
+if @store1.destroy
+  puts "Store destroyed! It has #{@store1.employees.size} =/"
+else
+  puts "Could not destroy store :)"
 end
 
-print 'Please provide a name for a new store > '
-answer = gets.chomp.to_s
-
-new_store = Store.create(name: answer)
-p "IS THE NEW STORE VALID? " + new_store.valid?.to_s.upcase
-p "----- REASONS WHY IT IS NOT VALID -----"
-p "name errors: " + new_store.errors.details[:name].to_s
-p "annual_revenue errors: " + new_store.errors.details[:annual_revenue].to_s
-p "mens_apparel / womens_apparel errors: " + new_store.errors.details[:mens_apparel].to_s
-
+# Make sure empty stores can be destroyed
+@empty_store = Store.create!(name: 'Test Empty Store', annual_revenue: 0, womens_apparel: true, mens_apparel: true)
+if @empty_store.destroy
+  puts "Empty Store destroyed! This is good"
+else
+  puts "Whoa! Empty store should be destroyable... Not cool!"
+end
