@@ -105,14 +105,14 @@ Let's tell Active Record that these two tables are in fact related via the `stor
 3. Attempt to create a store with the inputted name but leave out the other fields (annual_revenue, mens_apparel, and womens_apparel)
 4. Display the error messages provided back from ActiveRecord to the user (one on each line) after you attempt to save/create the record
 
-### Exercise 8: Employee passwords
+### Exercise 8: Employee passwords (OPTIONAL STRETCH WORK)
 
 * Scenario: We want to be able to give employees a password (string) that is auto-generated when their record is created in the database.
 * Add A Callback:
   * Let's revisit the goal:
   * Before an employee is created, AR should automatically create a random (8 character string) password.
 
-### Exercise 9: Disallow store destruction
+### Exercise 9: Disallow store destruction (OPTIONAL STRETCH WORK)
 
 * Scenario: For data integrity reasons, we want to restrict users from deleting (aka destroying) store records for stores that have 1 or more employees.
   * Register a callback on the Store model that will help you stop the destroy life cycle from taking place in that condition. You'll need to research how to do this!
