@@ -104,3 +104,10 @@ Let's tell Active Record that these two tables are in fact related via the `stor
 2. Ask the user for a store name (store it in a variable)
 3. Attempt to create a store with the inputted name but leave out the other fields (annual_revenue, mens_apparel, and womens_apparel)
 4. Display the error messages provided back from ActiveRecord to the user (one on each line) after you attempt to save/create the record
+
+### Exercise 8: Employee passwords
+
+* Scenario: We want to be able to give employees a password (string) that is auto-generated when their record is created in the database.
+* Add A Callback:
+  * Let's revisit the goal:
+  * Before an employee is created, AR should automatically create a random (8 character string) password.
